@@ -38,7 +38,7 @@
         android:id="@+id/txtTenBai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Độ ta không độ nàng"
+        android:text=""
         android:textSize="20dp"
         android:gravity="center"/>
 
@@ -46,7 +46,7 @@
         android:id="@+id/txtThoiGian"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="4 min, 31 sec"
+        android:text=""
         android:textSize="20dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"

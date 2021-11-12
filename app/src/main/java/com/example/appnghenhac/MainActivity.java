@@ -27,10 +27,26 @@ public class MainActivity extends AppCompatActivity {
         actionChon();
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            txtIdBai.setText(bundle.getInt("idBai") + "");
+            mediaPlayer.pause();
+            txtIdBai.setText("Bài " + bundle.getString("idBai"));
             khoa = bundle.getInt("khoa");
             txtTenBai.setText(bundle.getString("ten"));
             mediaPlayer = MediaPlayer.create(this, khoa);
+            int startTime = mediaPlayer.getDuration();
+            txtThoiGian.setText(String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                    TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
+        }else {
+            mediaPlayer.pause();
+            txtIdBai.setText("Bài 1");
+            txtTenBai.setText("Ái Nộ - Masew x Khôi Vũ");
+            mediaPlayer = MediaPlayer.create(this, R.raw.ai_no_masew_x_khoi_vu);
+            int startTime = mediaPlayer.getDuration();
+            txtThoiGian.setText(String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes((long) startTime),
+                    TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) startTime))));
         }
     }
 
@@ -47,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mediaPlayer.start();
+                txtTrangthai.setText("Đang chạy");
             }
         });
 
@@ -54,22 +71,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mediaPlayer.pause();
+                txtTrangthai.setText("Đã dừng chạy");
             }
         });
     }
-
-    private Runnable capnhatBai = new Runnable() {
-        @Override
-        public void run() {
-            int startTime = mediaPlayer.getCurrentPosition();
-            txtThoiGian.setText(String.format("%d min, %d sec",
-                    TimeUnit.MILLISECONDS.toMinutes((long) startTime),
-                    TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
-                                    toMinutes((long) startTime)))
-            );
-        }
-    };
 
     private void getView() {
         txtIdBai = (TextView) findViewById(R.id.txtIdBai);
